@@ -1,0 +1,213 @@
+Marcin Orzełowski - Laboratory 4 - EOPSY
+
+--[ YOUR TASK ]-------------------------------------------------------
+
+Create a command file that maps any 8 pages of physical memory to the
+first 8 pages of virtual memory, and then reads from one virtual memory
+address on each of the 64 virtual pages. Step through the simulator one
+operation at a time and see if you can predict which virtual memory
+addresses cause page faults. What page replacement algorithm is being
+used?
+
+Locate in the sources and describe to the instructor the page 
+replacement algorithm.
+
+----------------------------------------------------------------------
+
+
+--[ memory.conf ]-----------------------------------------------------
+
+// memset  virt page #  physical page #  R (read from)  M (modified) inMemTime (ns) lastTouchTime (ns)
+memset 0 0 0 0 0 0      
+memset 1 1 0 0 0 0      
+memset 2 2 0 0 0 0      
+memset 3 3 0 0 0 0      
+memset 4 4 0 0 0 0      
+memset 5 5 0 0 0 0      
+memset 6 6 0 0 0 0      
+memset 7 7 0 0 0 0      
+          
+
+// enable_logging 'true' or 'false'
+// When true specify a log_file or leave blank for stdout
+enable_logging true
+
+// log_file <FILENAME>
+// Where <FILENAME> is the name of the file you want output
+// to be print to.
+log_file tracefile
+
+// page size, defaults to 2^14 and cannot be greater than 2^26
+// pagesize <single page size (base 10)> or <'power' num (base 2)>
+pagesize 64
+
+// addressradix sets the radix in which numerical values are displayed
+// 2 is the default value
+// addressradix <radix>
+addressradix 10
+
+-----------------------------------------------------------------------------
+
+--[ commands ]---------------------------------------------------------------
+
+// Enter READ/WRITE commands into this file
+// READ <OPTIONAL number type: bin/hex/oct> <virtual memory address or random>
+// WRITE <OPTIONAL number type: bin/hex/oct> <virtual memory address or random>
+READ 63
+READ 127
+READ 191
+READ 255
+READ 319
+READ 383
+READ 447
+READ 511
+READ 639
+READ 703
+READ 767
+READ 831
+READ 895
+READ 959
+READ 1023
+READ 1087
+READ 1151
+READ 1215
+READ 1279
+READ 1343
+READ 1407
+READ 1471
+READ 1535
+READ 1599
+READ 1663
+READ 1727
+READ 1791
+READ 1855
+READ 1919
+READ 1983
+READ 2047
+READ 2111
+READ 2175
+READ 2239
+READ 2303
+READ 2367
+READ 2431
+READ 2495
+READ 2559
+READ 2623
+READ 2687
+READ 2751
+READ 2815
+READ 2879
+READ 2943
+READ 3007
+READ 3071
+READ 3135
+READ 3199
+READ 3263
+READ 3327
+READ 3391
+READ 3455
+READ 3519
+READ 3583
+READ 3647
+READ 3711
+READ 3775
+READ 3839
+READ 3903
+READ 3967
+READ 4031
+READ 4032
+
+--------------------------------------------------------------------------------------
+
+
+--[ tracefile ]-------------------------------------------------------
+
+READ 63 ... okay
+READ 127 ... okay
+READ 191 ... okay
+READ 255 ... okay
+READ 319 ... okay
+READ 383 ... okay
+READ 447 ... okay
+READ 511 ... okay
+READ 639 ... okay
+READ 703 ... okay
+READ 767 ... okay
+READ 831 ... okay
+READ 895 ... okay
+READ 959 ... okay
+READ 1023 ... okay
+READ 1087 ... okay
+READ 1151 ... okay
+READ 1215 ... okay
+READ 1279 ... okay
+READ 1343 ... okay
+READ 1407 ... okay
+READ 1471 ... okay
+READ 1535 ... okay
+READ 1599 ... okay
+READ 1663 ... okay
+READ 1727 ... okay
+READ 1791 ... okay
+READ 1855 ... okay
+READ 1919 ... okay
+READ 1983 ... okay
+READ 2047 ... okay
+READ 2111 ... page fault
+READ 2175 ... page fault
+READ 2239 ... page fault
+READ 2303 ... page fault
+READ 2367 ... page fault
+READ 2431 ... page fault
+READ 2495 ... page fault
+READ 2559 ... page fault
+READ 2623 ... page fault
+READ 2687 ... page fault
+READ 2751 ... page fault
+READ 2815 ... page fault
+READ 2879 ... page fault
+READ 2943 ... page fault
+READ 3007 ... page fault
+READ 3071 ... page fault
+READ 3135 ... page fault
+READ 3199 ... page fault
+READ 3263 ... page fault
+READ 3327 ... page fault
+READ 3391 ... page fault
+READ 3455 ... page fault
+READ 3519 ... page fault
+READ 3583 ... page fault
+READ 3647 ... page fault
+READ 3711 ... page fault
+READ 3775 ... page fault
+READ 3839 ... page fault
+READ 3903 ... page fault
+READ 3967 ... page fault
+READ 4031 ... page fault
+READ 4032 ... page fault
+
+-----------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------
+--DESCRIPTION & CONCLUSION------------------------------------------------------------
+
+
+For better visibility of results I made following changes:
+addressrandix was set to 10 - results in decimal system
+pagesize 64 - more easy to observe and commant. 
+
+I have mapped 8 pages of physical memory to the first 8 pages of virtual memory. The rest of pages have been mapped automatically. 
+
+There are only 32 physical pages, as we could expect during the mapping of 32nd (no. 31, counting from 0) we occured page fault - situation when a running program accesses a memory page that is mapped into the virtual address space, but not loaded in physcial memory.
+
+Algorithm used: FIFO - one of the simplest replacement algorithm. Operating system keeps track of all pages in the memory in a queue, the oldest page is in the front of the queue. When a page needs to be replaced page in the front of the queue is selected for removal. 
+
+
+
+........................................................................................
+
+
+
+
+
