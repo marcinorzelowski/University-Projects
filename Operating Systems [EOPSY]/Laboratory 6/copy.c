@@ -21,7 +21,7 @@ void copy_read_write(int fd_from,   int fd_to) {
         printf("Copied %d BYTES.", BUFFER);
     }
     printf("File copied. \n");
-    close(fd_from);
+    close(fd_from); //close file descriptor
     close(fd_to);
     return;
 }
@@ -37,8 +37,8 @@ void copy_mmap(int fd_from, int fd_to) {
 
     ftruncate(fd_to, filesize); //truncate file to filesize
     dest = mmap(NULL, filesize, PROT_READ | PROT_WRITE, MAP_SHARED, fd_to, 0);
-    memcpy(dest, src, filesize);
-    munmap(src, filesize);
+    memcpy(dest, src, filesize); //copy size of bytes from src to dest.
+    munmap(src, filesize); //delete mapping
     munmap(dest, filesize);
 
     close(fd_from);
